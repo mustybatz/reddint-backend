@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 
 const postController = {
     
-    getAll: (req: Request, res: Response) => {},
+    getAll: (req: Request, res: Response) => {
+        return res.status(200).json({ hello: 'olis 😈 motomami 😈' });
+    },
 
     getOne: (req: Request, res: Response) => {},
 
