@@ -135,16 +135,17 @@
     },
     "/posts/{id}": {
       "get": {
-        "summary": "Get The subreddint from the post",
+        "summary": "Get the post with the id",
         "tags": [
           "Post"
         ],
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "post_id",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "required": true
             },
             "required": true,
             "description": "Get the subreddint from the post"
@@ -152,18 +153,18 @@
         ],
         "responses": {
           "200": {
-            "description": "Get the subreddint from the post",
+            "description": "Get the post with the id",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Subreddint"
+                  "$ref": "#/components/schemas/Post"
                 }
               }
             }
           },
           "404": {
-            "description": "Subreddint not found"
+            "description": "Post not found"
           }
         }
       },

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Posts from "../models/Posts.model";
+import Comments from "../models/Comments.model";
 import Subreddint from "../models/Subreddint.model";
 
 const PostsController = {
@@ -7,6 +8,24 @@ const PostsController = {
         try {
             const posts = await Posts.find().populate('subreddint');
             res.status(200).json(posts);
+        } catch (error) {
+            res.status(500).json({ message: error });
+        }
+    },
+    getPost: async (req: Request, res: Response) => {
+        try {
+            
+            const { post_id } = req.params;
+            const post = await Posts.findById(post_id).populate('subreddint');
+
+            if(!post) {
+                return res.status(404).json({ message: 'Post not found' });
+            }
+
+            const comments = await Comments.find({ post: post._id });
+
+
+            res.status(200).json({...post, comments});
         } catch (error) {
             res.status(500).json({ message: error });
         }
@@ -21,7 +40,6 @@ const PostsController = {
     },
     getSubreddintPostsName: async (req: Request, res: Response) => {
         try {
-            console.log("hola");
             const subreddint = await Posts.find({ subreddint: req.params.name }).populate('subreddint');
             res.status(200).json(subreddint);
         } catch (error) {

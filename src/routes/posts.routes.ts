@@ -169,6 +169,32 @@ postsRouter.delete('/:id', PostsController.delete);
 postsRouter.post('/:id/upvote', PostsController.upvote);
 postsRouter.post('/:id/downvote', PostsController.downvote);
 
+/**
+ * @swagger
+ * 
+ * /posts/{id}:
+ *  get:
+ *      summary: Get the post with the id
+ *      tags: [Post]
+ *      parameters:
+ *      - in: path
+ *        name: post_id
+ *        schema:
+ *          type: string
+ *          required: true
+ * 
+ *      responses:
+ *          200:
+ *              description: Get the post with the id
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Post'
+ *          404:
+ *              description: Post not found
+ */
+postsRouter.get('/:post_id', PostsController.getPost);
+
 
 export default postsRouter;
 
