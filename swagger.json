@@ -1,0 +1,547 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Reddint API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/comments": {
+      "post": {
+        "summary": "Create a new Comment",
+        "tags": [
+          "Comment"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/CreateComment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logged in!"
+          },
+          "404": {
+            "description": "Wrong credentials."
+          }
+        }
+      }
+    },
+    "/comments/{post_id}": {
+      "get": {
+        "summary": "Get all comments of a post",
+        "tags": [
+          "Comment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "post_id",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          }
+        ]
+      }
+    },
+    "/comments/upvote/{comment_id}": {
+      "put": {
+        "summary": "Upvote a comment",
+        "tags": [
+          "Comment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "comment_id",
+            "schema": null,
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/comments/downvote/{comment_id}": {
+      "put": {
+        "summary": "Downvote a comment",
+        "tags": [
+          "Comment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "comment_id",
+            "schema": null,
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/posts": {
+      "post": {
+        "summary": "Create a new Post",
+        "tags": [
+          "Post"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created new Post!"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all posts",
+        "tags": [
+          "Post"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get all Posts!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "summary": "Get The subreddint from the post",
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Get the subreddint from the post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get the subreddint from the post",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Subreddint"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subreddint not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Post",
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Update a Post"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Post Updated!"
+          },
+          "404": {
+            "description": "Post not found!"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Post",
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Delete a Post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post deleted!"
+          },
+          "404": {
+            "description": "Post not found!"
+          }
+        }
+      }
+    },
+    "/subreddints": {
+      "post": {
+        "summary": "Create a new Subreddint",
+        "tags": [
+          "Subreddint"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Subreddint"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created new Subreddint!"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all subreddints",
+        "tags": [
+          "Subreddint"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get all Subreddints!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subreddint"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subreddints/{id}": {
+      "get": {
+        "summary": "Get one subreddint",
+        "tags": [
+          "Subreddint"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Get one subreddint"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get one Subreddint!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Subreddint"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subreddint not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "Update one subreddint",
+        "tags": [
+          "Subreddint"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Update one subreddint"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Subreddint"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Subreddint updated!"
+          },
+          "404": {
+            "description": "Subreddint not found."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete one subreddint",
+        "tags": [
+          "Subreddint"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Delete one subreddint"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subreddint deleted!"
+          },
+          "404": {
+            "description": "Subreddint not found."
+          }
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "summary": "Create a new User",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created new User!"
+          }
+        }
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "summary": "Login",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logged in!"
+          },
+          "404": {
+            "description": "Wrong credentials."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateComment": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string",
+            "description": "Comment body"
+          },
+          "post_id": {
+            "type": "string",
+            "description": "Post id where the comment belongs"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "example": {
+          "body": "🎉 Your post sucks 🎉",
+          "post_id": "5e9f8f8f8f8f8f8f8f8f8f8"
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Post's title"
+          },
+          "body": {
+            "type": "string",
+            "description": "Post's text body"
+          },
+          "subreddint": {
+            "type": "string",
+            "description": "Subreddint where the post belongs"
+          }
+        },
+        "required": [
+          "title",
+          "body",
+          "subreddint"
+        ],
+        "example": {
+          "title": "Spinosaur",
+          "body": "is the best dinosaur because...",
+          "subreddint": "Dinos"
+        }
+      },
+      "Subreddint": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Subreddint's name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Subreddint's description."
+          }
+        },
+        "required": [
+          "name",
+          "description"
+        ],
+        "example": {
+          "name": "TooAfraidToAsk",
+          "description": "Anything and everything you’ve ever been TooAfraidToAsk."
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "user's name"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password."
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "example": {
+          "email": "barush@gmail.com",
+          "password": "password"
+        }
+      },
+      "UserCreate": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "user's email"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password."
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "example": {
+          "email": "barush@gmail.com",
+          "password": "password"
+        }
+      }
+    }
+  },
+  "channels": {},
+  "tags": []
+}
