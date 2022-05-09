@@ -48,6 +48,13 @@ resource "aws_instance" "Reddint_Instance" {
     --name watchtower \
     -v /var/run/docker.sock:/var/run/docker.sock \
     containrrr/watchtower --cleanup --interval 120
+
+    #Run backend
+    docker run -d \
+    --name reddint \
+    -p 3000:3000 \
+    mustybatz/reddint-backend:latest
+
     EOF
 
   tags = {
